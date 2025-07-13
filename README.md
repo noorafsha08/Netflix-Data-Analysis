@@ -1,124 +1,93 @@
 # 📺 Netflix Data Analysis
 
-This project analyses a Netflix dataset to extract meaningful insights about its content library using **Python, Pandas, and Matplotlib**.
+This project analyses the Netflix dataset to extract meaningful insights about its content library using **Python, Pandas, and Matplotlib**.
 
-## 🔍 Overview
+---
 
-- Analyse number of movies vs TV shows
-- Find top genres on Netflix
-- Year-wise content addition trend
-- Country-wise distribution of content
-- Visualise data for better understanding
+## 🔍 **Project Overview**
 
-## 🗂️ Dataset
+In this analysis, I:
 
-- [Netflix Titles Dataset on Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows)
+✅ Explored the Netflix dataset from Kaggle  
+✅ Cleaned and prepared the data for analysis  
+✅ Answered key questions:
+- How many movies vs TV shows are on Netflix?
+- What are the top 10 most common genres?
+- How has content addition changed year-wise?
+- Which countries contribute the most content to Netflix?
 
-## 🛠️ Tech Stack
+✅ Visualised data insights with clear, aesthetic plots
 
-- Python
-- Pandas
-- Matplotlib
-- Seaborn (optional for better visuals)
+---
 
-## 📊 Results
+## 🗂️ **Dataset**
 
-Include plots here after running your notebook.
+- **Source:** [Netflix Titles Dataset on Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows)
+- **File:** `netflix_titles.csv`
 
-## 🚀 How to Run
+---
 
-1. Clone this repo
-2. Install requirements (Pandas, Matplotlib, Seaborn)
-3. Open `netflix_analysis.ipynb` and run all cells
+## 🛠️ **Tech Stack**
+
+- Python 🐍
+- Pandas 📊
+- Matplotlib 📈
+- Seaborn (for better visuals) 🎨
+
+---
+
+## 📊 **Results Preview**
+
+*(Add output plot screenshots here after running your notebook)*
+
+Example:
+
+![Movies vs TV Shows](output/movies_vs_tvshows.png)  
+*Fig 1. Count of Movies and TV Shows*
+
+---
+
+## 🚀 **How to Run This Project**
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/noorafsha08/Netflix-Data-Analysis.git
+cd Netflix-Data-Analysis
+````
+
+2. Install required libraries:
 
 ```bash
 pip install pandas matplotlib seaborn
+```
+
+3. Run the Jupyter Notebook:
+
+```bash
+jupyter notebook netflix_analysis.ipynb
+```
+
+4. Explore each cell step by step and view the outputs.
 
 ---
-```
-### ✅ **4. Stepwise Code Plan**
 
-#### 📌 **Step 1. Setup**
-```
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+## ✨ **Author**
 
-# Read dataset
-df = pd.read_csv('netflix_titles.csv')
-df.head()
+👩‍💻 Noor Afsha
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square\&logo=linkedin)](https://www.linkedin.com/in/noor-afsha-06612a216/)
+[![GitHub](https://img.shields.io/badge/GitHub-black?style=flat-square\&logo=github)](https://github.com/noorafsha08)
 
-```
-#### 📌 **Step 2. Data Cleaning**
+---
 
-```python
-# Check for null values
-print(df.isnull().sum())
+## 💡 **Future Work**
 
-# Fill or drop if needed
-df['country'].fillna('Unknown', inplace=True)
-df['director'].fillna('Not Specified', inplace=True)
-df['cast'].fillna('Not Specified', inplace=True)
-df['date_added'].fillna('Not Specified', inplace=True)
-df.dropna(inplace=True)  # optional for rows with few missing
+* Perform NLP analysis on movie descriptions
+* Build a recommendation system using this dataset
+* Analyse time trends for content releases and their ratings
+
+---
+
+✨ *“Data is the new oil – let’s refine it into insights!”*
 
 ```
-#### 📌 **Step 3. Movies vs TV Shows**
-
-```python
-sns.countplot(x='type', data=df)
-plt.title('Count of Movies and TV Shows on Netflix')
-plt.show()
-
-```
-#### 📌 **Step 4. Top 10 Genres**
-```python
-# Split multiple listed genres and count
-from collections import Counter
-
-genre_count = Counter()
-
-for genres in df['listed_in']:
-    genre_count.update([genre.strip() for genre in genres.split(',')])
-
-# Convert to dataframe
-genre_df = pd.DataFrame(genre_count.items(), columns=['Genre', 'Count']).sort_values(by='Count', ascending=False).head(10)
-
-# Plot
-sns.barplot(x='Count', y='Genre', data=genre_df)
-plt.title('Top 10 Genres on Netflix')
-plt.show()
-
-```
-#### 📌 **Step 5. Year-wise Content Added**
-```python
-# Extract year from date_added
-df['year_added'] = pd.to_datetime(df['date_added'], errors='coerce').dt.year
-
-# Drop NaT rows
-df = df.dropna(subset=['year_added'])
-
-# Convert to int
-df['year_added'] = df['year_added'].astype(int)
-
-# Plot
-df['year_added'].value_counts().sort_index().plot(kind='bar', figsize=(12,6))
-plt.title('Content Added per Year')
-plt.xlabel('Year')
-plt.ylabel('Number of Titles')
-plt.show()
-
-```
-#### 📌 **Step 6. Country-wise Distribution (Top 10)**
-```python
-country_count = df['country'].value_counts().head(10)
-
-# Plot
-country_count.plot(kind='barh')
-plt.title('Top 10 Countries with Most Content on Netflix')
-plt.xlabel('Number of Titles')
-plt.show()
-
-✅ 5. Final: Push to GitHub
-
