@@ -1,8 +1,3 @@
-Here is your **final professional, clean, and recruiter-friendly `README.md`** for your **Netflix Data Analysis** GitHub repository. Copy-paste this directly:
-
----
-
-````markdown
 # 📺 Netflix Data Analysis
 
 This project analyses the Netflix dataset to extract meaningful insights about its content library using **Python, Pandas, and Matplotlib**.
